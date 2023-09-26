@@ -27,17 +27,18 @@ impl TimeKeeper {
     }
 }
 
-const H: usize = 5;
-const W: usize = 5;
-const END_TURN: usize = 5;
-const CHARACTER_N: usize = 3;
-
-type ScoreType = i64;
-const INF: ScoreType = 1_000_000_000;
-
-struct State;
+struct State {
+    // TODO: add parameter
+}
 
 impl State {
+    fn new() -> Self {
+        // TODO: Implement constructor
+        Self {
+
+        }
+    }
+
     fn get_score(&self) -> ScoreType {
         // TODO: Return the calculated score
         0
@@ -54,11 +55,11 @@ impl State {
 
 fn simulated_annealing_with_time_threshold(
     state: State,
-    time_threshold: Duration,
+    time_threshold: i64,
     start_temp: f64,
     end_temp: f64,
 ) -> State {
-    let mut time_keeper = TimeKeeperDouble::new(time_threshold);
+    let mut time_keeper = TimeKeeper::new(time_threshold);
     let mut now_state = state;
     now_state.init();
     let mut best_score = now_state.get_score();
@@ -70,11 +71,10 @@ fn simulated_annealing_with_time_threshold(
         let mut next_state = now_state.clone();
         next_state.transition();
         let next_score = next_state.get_score();
-        let elapsed_ratio =
-            time_keeper.get_now_time().as_secs_f64() / time_threshold.as_secs_f64();
+        let elapsed_ratio = time_keeper.elapsed_time();
         let temp = start_temp + (end_temp - start_temp) * elapsed_ratio;
         let probability = ((next_score - now_score) as f64 / temp).exp();
-        let is_force_next = probability > rng.gen_range(0.0..1.0);
+        let is_force_next = probability > rng.gen_range(0.0, 1.0);
         if next_score > now_score || is_force_next {
             now_score = next_score;
             now_state = next_state;
@@ -95,10 +95,10 @@ fn main() {
     input! {
         n: usize,
         m: usize,
-        grid: [[usize; n]; m]
+        c: [[usize; n]; n]
     }
     let initial_state = State {};
-    let time_threshold = Duration::from_millis(1000);
+    let time_threshold = 2000 as i64;
     let start_temp = 10.0;
     let end_temp = 1.0;
 
