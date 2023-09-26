@@ -1,5 +1,6 @@
 use std::time::{Duration, Instant};
 use rand::prelude::*;
+use proconio::{fastout, input};
 
 // 時間を管理する構造体
 struct TimeKeeper {
@@ -91,6 +92,11 @@ fn simulated_annealing_with_time_threshold(
 }
 
 fn main() {
+    input! {
+        n: usize,
+        m: usize,
+        grid: [[usize; n]; m]
+    }
     let initial_state = State {};
     let time_threshold = Duration::from_millis(1000);
     let start_temp = 10.0;

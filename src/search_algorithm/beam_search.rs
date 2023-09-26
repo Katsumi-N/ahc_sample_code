@@ -111,6 +111,11 @@ fn beam_search_action_with_time_threshold(state: State, beam_width: usize, time_
 }
 
 fn main() {
+    input! {
+        n: usize,
+        m: usize,
+        grid: [[usize; n]; m]
+    }
     let initial_state = State::new();
     let beam_width = 10;
     let time_threshold = Duration::from_millis(1000);

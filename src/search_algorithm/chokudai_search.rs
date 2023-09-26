@@ -119,3 +119,23 @@ fn chokudai_search_action_with_time_threshold(
 
     -1
 }
+
+fn main() {
+    input! {
+        n: usize,
+        m: usize,
+        grid: [[usize; n]; m]
+    }
+    let initial_state = State {};
+    let time_threshold = Duration::from_millis(1000);
+    let start_temp = 10.0;
+    let end_temp = 1.0;
+
+    let result = chokudai_search_action_with_time_threshold(
+        initial_state,
+        time_threshold,
+        start_temp,
+        end_temp,
+    );
+    // TODO: Handle the result appropriately.
+}
