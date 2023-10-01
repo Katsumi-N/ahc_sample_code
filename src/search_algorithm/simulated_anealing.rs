@@ -22,8 +22,8 @@ impl TimeKeeper {
         self.start_time.elapsed().as_millis() >= self.time_threshold as u128
     }
 
-    fn elapsed_time(&self) -> u128 {
-        self.start_time.elapsed().as_millis()
+    fn elapsed_time(&self) -> f64 {
+        self.start_time.elapsed().as_millis() as f64
     }
 }
 
@@ -73,7 +73,7 @@ fn simulated_annealing_with_time_threshold(
         let is_force_next = probability > rng.gen_range(0.0, 1.0);
         if next_score > now_score || is_force_next {
             now_score = next_score;
-            now_state = next_state;
+            now_state = next_state.clone();
         }
         if next_score > best_score {
             best_score = next_score;
@@ -92,7 +92,7 @@ fn main() {
         m: usize,
         c: [[usize; n]; n]
     }
-    let initial_state = State {};
+    let initial_state = State::new(c);
     let time_threshold = 2000 as i64;
     let start_temp = 10.0;
     let end_temp = 1.0;
