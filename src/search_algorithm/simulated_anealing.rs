@@ -39,13 +39,9 @@ impl State {
         }
     }
 
-    fn get_score(&self) -> ScoreType {
+    fn get_score(&self) -> usize {
         // TODO: Return the calculated score
         0
-    }
-
-    fn init(&mut self) {
-        // TODO: Implement initialization logic
     }
 
     fn transition(&mut self) {
@@ -83,7 +79,6 @@ fn simulated_annealing_with_time_threshold(
             best_score = next_score;
             best_state = next_state;
         }
-        time_keeper.set_now_time();
         if time_keeper.is_time_over() {
             break;
         }
